@@ -1,0 +1,30 @@
+# Configurable rubric for LLM-as-judge summary scoring.
+# Edit this file to change what "good" means for your feature — the judge
+# prompt is built directly from these criteria, so changes here take effect
+# on the next eval run with no code changes.
+#
+# Each criterion is scored implicitly by the judge as part of arriving at
+# the final 1-5 score; weights bias how much the judge should emphasize
+# each one in its reasoning. Weights don't need to sum to 1 — they're
+# relative emphasis, not a strict formula.
+
+version: "v1"
+
+criteria:
+  - name: "Intent accuracy"
+    description: "Does the summary correctly identify what the customer actually wants or is reporting?"
+    weight: 0.4
+
+  - name: "Completeness"
+    description: "Does the summary capture the key detail (e.g. the specific issue, amount, or request), not just a vague restatement?"
+    weight: 0.3
+
+  - name: "Conciseness"
+    description: "Is it a genuine one-sentence summary, not a copy of the original email or an overlong paraphrase?"
+    weight: 0.15
+
+  - name: "Neutrality"
+    description: "Is the tone neutral and factual, avoiding assumptions not stated in the email?"
+    weight: 0.15
+
+scoring_scale: "1 (unrelated/wrong) to 5 (equivalent meaning to the expected summary)"

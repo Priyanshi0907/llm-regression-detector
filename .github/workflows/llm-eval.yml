@@ -1,0 +1,109 @@
+name: LLM Evaluation Pipeline
+
+# Two triggers, two purposes:
+# - pull_request: gatekeeping. Runs the eval, blocks merge on FAIL. Does NOT
+#   commit anything, since a PR's results aren't "official" until merged.
+# - push to main: the PR was accepted. Re-run the eval against the merged
+#   state and commit the results DB + report back to the repo, so anyone
+#   pulling main (or the hosted dashboard, if it reads from this repo) sees
+#   the latest accepted run without a manual step.
+on:
+  pull_request:
+    paths:
+      - "prompts/**"
+      - "golden_dataset/**"
+      - "src/**"
+  push:
+    branches: [main]
+    paths:
+      - "prompts/**"
+      - "golden_dataset/**"
+      - "src/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run-evaluation:
+    name: Run Evaluation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Determine changed prompt version
+        id: prompt
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            CHANGED=$(git diff --name-only HEAD~1 HEAD -- prompts/ | tail -n 1)
+          else
+            CHANGED=$(git diff --name-only origin/${{ github.base_ref }} -- prompts/ | tail -n 1)
+          fi
+          if [ -z "$CHANGED" ]; then
+            CHANGED=$(ls prompts/*.yaml | sort | tail -n 1)
+          fi
+          echo "path=$CHANGED" >> "$GITHUB_OUTPUT"
+
+      - name: Run evaluation pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          # Falls back to mock mode automatically if OPENAI_API_KEY is unset,
+          # so this workflow is runnable out of the box on a fork with no secrets.
+          MOCK_MODE: ${{ secrets.OPENAI_API_KEY == '' && 'true' || 'false' }}
+        run: |
+          python -m src.cli --prompt "${{ steps.prompt.outputs.path }}"
+        id: eval
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: data/reports/*.html
+
+      - name: Comment on PR
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const files = fs.readdirSync('data/reports').filter(f => f.endsWith('.html'));
+            const latest = files.sort().pop();
+            const body = `### 🤖 LLM Eval Pipeline\n\nEvaluation finished for \`${{ steps.prompt.outputs.path }}\`.\n\nStatus: **${{ steps.eval.outcome }}**\n\nFull HTML report uploaded as a workflow artifact: \`${latest}\`.`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body,
+            });
+
+      # Only runs after a merge to main — this is what makes "dashboard
+      # updated automatically" literally true instead of aspirational.
+      - name: Commit results back to main
+        if: always() && github.event_name == 'push'
+        run: |
+          git config user.name "eval-bot"
+          git config user.email "eval-bot@users.noreply.github.com"
+          git add data/eval_results.db data/reports/
+          if git diff --cached --quiet; then
+            echo "No result changes to commit."
+          else
+            git commit -m "chore: update eval results [skip ci]"
+            git push
+          fi
+
+      - name: Check thresholds (blocks merge on FAIL)
+        run: |
+          echo "Eval step exit code determines merge-blocking; a non-zero exit above already failed this job on FAIL status."

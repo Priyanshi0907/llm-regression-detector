@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.env
+data/*.db
+data/reports/*.html
+*.egg-info/
+.DS_Store
+.venv/
+venv/
+
+# Web dashboard — node_modules is regenerable via `npm install`;
+# dist/ is a build artifact (shipped once in the delivered zip for
+# convenience, but shouldn't be committed to git going forward).
+dashboard-web/frontend/node_modules/
+dashboard-web/frontend/dist/

@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #06070A;
+  --color-surface: #0D1117;
+  --color-surface-2: #12161F;
+  --color-border: #222938;
+  --color-border-strong: rgba(255,255,255,0.16);
+  --color-accent: #5B7FFF;
+  --color-accent-2: #5B7FFF;
+  --color-pass: #22C55E;
+  --color-warn: #F59E0B;
+  --color-fail: #EF4444;
+  --font-sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  background-color: var(--color-bg);
+  color: #e5e7eb;
+  font-family: var(--font-sans);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 8px; }
+
+.glass {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+}
+
+.glass-hover {
+  transition: all 180ms ease;
+}
+.glass-hover:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #a78bfa, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 37%, rgba(255,255,255,0.04) 63%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 8px;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fade-in-up 260ms ease both; }
+
+mark {
+  background: rgba(124,108,246,0.35);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+

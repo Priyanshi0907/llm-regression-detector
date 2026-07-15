@@ -1,0 +1,487 @@
+{
+  "dataset_version": "imported",
+  "created": "imported",
+  "notes": "Imported from tmpc34o6fhc.csv, merged with dataset_v1.json",
+  "cases": [
+    {
+      "id": "TC001",
+      "input": "I was charged twice for my subscription this month. Can I get a refund?",
+      "expected_category": "billing",
+      "expected_summary": "Customer requests a refund for a duplicate subscription charge.",
+      "expected_difficulty": "easy",
+      "notes": "duplicate charge"
+    },
+    {
+      "id": "TC002",
+      "input": "My invoice shows an extra $30 I don't recognize.",
+      "expected_category": "billing",
+      "expected_summary": "Customer questions an unexpected charge on the invoice.",
+      "expected_difficulty": "easy",
+      "notes": "unexpected fee"
+    },
+    {
+      "id": "TC003",
+      "input": "Can you send me the receipt for my April payment?",
+      "expected_category": "billing",
+      "expected_summary": "Customer requests a payment receipt.",
+      "expected_difficulty": "easy",
+      "notes": "receipt"
+    },
+    {
+      "id": "TC004",
+      "input": "I canceled last week but I was still billed today.",
+      "expected_category": "billing",
+      "expected_summary": "Customer reports being charged after cancellation.",
+      "expected_difficulty": "easy",
+      "notes": "billing after cancel"
+    },
+    {
+      "id": "TC005",
+      "input": "Why has my monthly plan become more expensive?",
+      "expected_category": "billing",
+      "expected_summary": "Customer asks about an increase in subscription cost.",
+      "expected_difficulty": "medium",
+      "notes": "price increase"
+    },
+    {
+      "id": "TC006",
+      "input": "My coupon SAVE20 isn't applying during checkout.",
+      "expected_category": "billing",
+      "expected_summary": "Customer reports a discount coupon not working.",
+      "expected_difficulty": "easy",
+      "notes": "coupon"
+    },
+    {
+      "id": "TC007",
+      "input": "Can I switch from monthly to yearly billing?",
+      "expected_category": "billing",
+      "expected_summary": "Customer wants to change the billing cycle.",
+      "expected_difficulty": "easy",
+      "notes": "plan change"
+    },
+    {
+      "id": "TC008",
+      "input": "Please refund my annual subscription.",
+      "expected_category": "billing",
+      "expected_summary": "Customer requests a refund for the annual subscription.",
+      "expected_difficulty": "easy",
+      "notes": "refund"
+    },
+    {
+      "id": "TC009",
+      "input": "The API keeps returning a 500 Internal Server Error.",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports repeated HTTP 500 server errors.",
+      "expected_difficulty": "easy",
+      "notes": "server error"
+    },
+    {
+      "id": "TC010",
+      "input": "My webhook events stopped arriving yesterday.",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports webhook delivery failure.",
+      "expected_difficulty": "medium",
+      "notes": "webhooks"
+    },
+    {
+      "id": "TC011",
+      "input": "The Python SDK crashes after updating.",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports SDK crashes after an update.",
+      "expected_difficulty": "medium",
+      "notes": "sdk"
+    },
+    {
+      "id": "TC012",
+      "input": "Every request times out after exactly 30 seconds.",
+      "expected_category": "technical",
+      "expected_summary": "Customer experiences request timeout issues.",
+      "expected_difficulty": "medium",
+      "notes": "timeout"
+    },
+    {
+      "id": "TC013",
+      "input": "OAuth login redirects back to the login page forever.",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports an OAuth authentication loop.",
+      "expected_difficulty": "hard",
+      "notes": "oauth"
+    },
+    {
+      "id": "TC014",
+      "input": "The CLI says permission denied even though I'm admin.",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports CLI permission issues.",
+      "expected_difficulty": "medium",
+      "notes": "permissions"
+    },
+    {
+      "id": "TC015",
+      "input": "Streaming responses stop halfway through.",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports incomplete streaming responses.",
+      "expected_difficulty": "hard",
+      "notes": "streaming"
+    },
+    {
+      "id": "TC016",
+      "input": "The API works locally but fails in production.",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports environment-specific API failures.",
+      "expected_difficulty": "hard",
+      "notes": "deployment"
+    },
+    {
+      "id": "TC017",
+      "input": "I lost access to my MFA device and can't log in.",
+      "expected_category": "account",
+      "expected_summary": "Customer requests assistance recovering account access after losing MFA.",
+      "expected_difficulty": "easy",
+      "notes": "mfa"
+    },
+    {
+      "id": "TC018",
+      "input": "Please delete my account permanently.",
+      "expected_category": "account",
+      "expected_summary": "Customer requests permanent account deletion.",
+      "expected_difficulty": "easy",
+      "notes": "account deletion"
+    },
+    {
+      "id": "TC019",
+      "input": "How do I change my registered email address?",
+      "expected_category": "account",
+      "expected_summary": "Customer wants to update the account email.",
+      "expected_difficulty": "easy",
+      "notes": "email update"
+    },
+    {
+      "id": "TC020",
+      "input": "My password reset email never arrives.",
+      "expected_category": "account",
+      "expected_summary": "Customer cannot receive password reset emails.",
+      "expected_difficulty": "easy",
+      "notes": "password reset"
+    },
+    {
+      "id": "TC021",
+      "input": "Someone logged into my account from another country.",
+      "expected_category": "account",
+      "expected_summary": "Customer reports suspicious account activity.",
+      "expected_difficulty": "medium",
+      "notes": "security"
+    },
+    {
+      "id": "TC022",
+      "input": "Can I transfer ownership of my workspace?",
+      "expected_category": "account",
+      "expected_summary": "Customer wants to transfer workspace ownership.",
+      "expected_difficulty": "medium",
+      "notes": "ownership"
+    },
+    {
+      "id": "TC023",
+      "input": "My account was suspended without warning.",
+      "expected_category": "account",
+      "expected_summary": "Customer asks why the account was suspended.",
+      "expected_difficulty": "medium",
+      "notes": "suspension"
+    },
+    {
+      "id": "TC024",
+      "input": "I accidentally enabled SSO and nobody can log in now.",
+      "expected_category": "account",
+      "expected_summary": "Customer reports organization login issues caused by SSO.",
+      "expected_difficulty": "hard",
+      "notes": "sso"
+    },
+    {
+      "id": "TC025",
+      "input": "Do you have an API for developers?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks whether an API is available.",
+      "expected_difficulty": "easy",
+      "notes": "product info"
+    },
+    {
+      "id": "TC026",
+      "input": "Where can I find your pricing?",
+      "expected_category": "general",
+      "expected_summary": "Customer requests pricing information.",
+      "expected_difficulty": "easy",
+      "notes": "pricing"
+    },
+    {
+      "id": "TC027",
+      "input": "Is there a student discount?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks about student discounts.",
+      "expected_difficulty": "easy",
+      "notes": "discount"
+    },
+    {
+      "id": "TC028",
+      "input": "What countries do you support?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks about regional availability.",
+      "expected_difficulty": "easy",
+      "notes": "regions"
+    },
+    {
+      "id": "TC029",
+      "input": "When will the mobile app launch?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks about future product availability.",
+      "expected_difficulty": "medium",
+      "notes": "roadmap"
+    },
+    {
+      "id": "TC030",
+      "input": "Can I integrate this with Slack?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks whether Slack integration is supported.",
+      "expected_difficulty": "easy",
+      "notes": "integration"
+    },
+    {
+      "id": "TC031",
+      "input": "Where is your documentation?",
+      "expected_category": "general",
+      "expected_summary": "Customer requests product documentation.",
+      "expected_difficulty": "easy",
+      "notes": "docs"
+    },
+    {
+      "id": "TC032",
+      "input": "Do you comply with GDPR?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks about GDPR compliance.",
+      "expected_difficulty": "medium",
+      "notes": "compliance"
+    },
+    {
+      "id": "TC033",
+      "input": "We're a 200-person company evaluating your product against competitors, can we get a call with sales?",
+      "expected_category": "general",
+      "expected_summary": "Prospective customer requests a sales call for enterprise evaluation.",
+      "expected_difficulty": "easy",
+      "notes": ""
+    },
+    {
+      "id": "TC034",
+      "input": "Do you have an affiliate or partner program?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks about affiliate or partner program availability.",
+      "expected_difficulty": "easy",
+      "notes": ""
+    },
+    {
+      "id": "TC035",
+      "input": "Not sure who to ask, but is there a status page for outages?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks whether a status page for outages exists.",
+      "expected_difficulty": "medium",
+      "notes": "Mentions outages but is asking about a resource, not reporting a bug"
+    },
+    {
+      "id": "TC036",
+      "input": "I'd love to see dark mode added to the app at some point.",
+      "expected_category": "general",
+      "expected_summary": "Customer requests a dark mode feature.",
+      "expected_difficulty": "easy",
+      "notes": ""
+    },
+    {
+      "id": "TC037",
+      "input": "What's the difference between your Starter and Growth plans?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks about differences between two pricing plans.",
+      "expected_difficulty": "hard",
+      "notes": "Mentions plans but is a pre-sales feature question, not a billing problem"
+    },
+    {
+      "id": "TC038",
+      "input": "Are you hiring? I'd love to work on a product like this.",
+      "expected_category": "general",
+      "expected_summary": "Customer asks if the company is hiring.",
+      "expected_difficulty": "easy",
+      "notes": ""
+    },
+    {
+      "id": "TC039",
+      "input": "hey",
+      "expected_category": "general",
+      "expected_summary": "Customer sent a message with no discernible request.",
+      "expected_difficulty": "hard",
+      "notes": "Extremely short, no actionable content"
+    },
+    {
+      "id": "TC040",
+      "input": "Following up on my last email, any update?",
+      "expected_category": "general",
+      "expected_summary": "Customer follows up on a previous, unspecified email.",
+      "expected_difficulty": "hard",
+      "notes": "No context on original request; genuinely ambiguous"
+    },
+    {
+      "id": "TC041",
+      "input": "cant login. password reset link says expird. ALSO billed twice this week!!",
+      "expected_category": "account",
+      "expected_summary": "Customer cannot log in via an expired reset link and also reports a duplicate charge.",
+      "expected_difficulty": "hard",
+      "notes": "Two issues in one email (account + billing); primary blocking issue is login access"
+    },
+    {
+      "id": "TC042",
+      "input": "wont load. keeps spining. tried refresh 10x",
+      "expected_category": "technical",
+      "expected_summary": "Customer's app won't load and shows an infinite spinner despite refreshing.",
+      "expected_difficulty": "medium",
+      "notes": "Typos, terse phrasing"
+    },
+    {
+      "id": "TC043",
+      "input": "Oh great, ANOTHER charge I didn't approve. Love that for me.",
+      "expected_category": "billing",
+      "expected_summary": "Customer sarcastically complains about another unapproved charge.",
+      "expected_difficulty": "hard",
+      "notes": "Sarcastic tone should not obscure the billing intent"
+    },
+    {
+      "id": "TC044",
+      "input": "Wow, three password resets and I STILL can't get in. Impressive.",
+      "expected_category": "account",
+      "expected_summary": "Customer sarcastically reports repeated failed password resets blocking login.",
+      "expected_difficulty": "hard",
+      "notes": "Sarcasm test, account category"
+    },
+    {
+      "id": "TC045",
+      "input": "No me deja iniciar sesion, dice contrase\u00f1a incorrecta aunque la acabo de cambiar.",
+      "expected_category": "account",
+      "expected_summary": "Customer (writing in Spanish) cannot log in despite recently changing their password.",
+      "expected_difficulty": "hard",
+      "notes": "Non-English input, mixed/foreign language edge case"
+    },
+    {
+      "id": "TC046",
+      "input": "Je n'arrive pas \u00e0 annuler mon abonnement, le bouton ne fonctionne pas.",
+      "expected_category": "billing",
+      "expected_summary": "Customer (writing in French) cannot cancel their subscription because the button doesn't work.",
+      "expected_difficulty": "hard",
+      "notes": "French input; billing intent with a technical symptom"
+    },
+    {
+      "id": "TC047",
+      "input": "billing page is broken, throws an error when I click 'update card', also is this the right place to ask about refunds?",
+      "expected_category": "billing",
+      "expected_summary": "Customer hits an error updating their card and asks about the refund process.",
+      "expected_difficulty": "hard",
+      "notes": "Overlaps billing and technical; primary intent is a billing task"
+    },
+    {
+      "id": "TC048",
+      "input": "idk who handles this but my account somehow has two emails linked and I only added one???",
+      "expected_category": "account",
+      "expected_summary": "Customer is confused why two email addresses are linked to their single account.",
+      "expected_difficulty": "hard",
+      "notes": "Casual tone, uncertainty markers"
+    },
+    {
+      "id": "TC049",
+      "input": "URGENT!!! nothing works, everything is BROKEN, fix this NOW",
+      "expected_category": "technical",
+      "expected_summary": "Customer reports the product is broken without specifying details, urgently.",
+      "expected_difficulty": "hard",
+      "notes": "No specifics, all caps urgency, must still classify as technical by default vagueness"
+    },
+    {
+      "id": "TC050",
+      "input": "k",
+      "expected_category": "general",
+      "expected_summary": "Customer sent a one-character message with no content.",
+      "expected_difficulty": "hard",
+      "notes": "Minimal input edge case"
+    },
+    {
+      "id": "TC051",
+      "input": "I love the product but the invoice PDF has a typo in our company name, can you fix that on file?",
+      "expected_category": "billing",
+      "expected_summary": "Customer requests a correction to their company name on invoice records.",
+      "expected_difficulty": "medium",
+      "notes": ""
+    },
+    {
+      "id": "TC052",
+      "input": "The export button is greyed out for CSV but works fine for PDF, is that intentional?",
+      "expected_category": "technical",
+      "expected_summary": "Customer asks whether a disabled CSV export button is intentional.",
+      "expected_difficulty": "medium",
+      "notes": ""
+    },
+    {
+      "id": "TC053",
+      "input": "Please remove my card details entirely from your systems, I don't want you storing them.",
+      "expected_category": "billing",
+      "expected_summary": "Customer requests removal of stored payment card details.",
+      "expected_difficulty": "medium",
+      "notes": ""
+    },
+    {
+      "id": "TC054",
+      "input": "Is there a way to see a login history for my account, I think someone else accessed it.",
+      "expected_category": "account",
+      "expected_summary": "Customer wants to review login history due to suspected unauthorized access.",
+      "expected_difficulty": "medium",
+      "notes": ""
+    },
+    {
+      "id": "TC055",
+      "input": "Quick question - what timezone does the scheduling feature use internally?",
+      "expected_category": "general",
+      "expected_summary": "Customer asks which timezone the scheduling feature uses.",
+      "expected_difficulty": "medium",
+      "notes": ""
+    },
+    {
+      "id": "TC056",
+      "input": "Getting 'insufficient permissions' error even though I'm the account owner.",
+      "expected_category": "technical",
+      "expected_summary": "Customer, despite being account owner, gets a permissions error.",
+      "expected_difficulty": "hard",
+      "notes": "Could plausibly be filed as account; core symptom is a permissions bug"
+    },
+    {
+      "id": "TC057",
+      "input": "Can you explain what the 'usage overage' line item on my bill means?",
+      "expected_category": "billing",
+      "expected_summary": "Customer asks for an explanation of a usage overage charge on their bill.",
+      "expected_difficulty": "easy",
+      "notes": ""
+    },
+    {
+      "id": "TC058",
+      "input": "The onboarding checklist won't mark step 3 as complete no matter what I do.",
+      "expected_category": "technical",
+      "expected_summary": "Customer's onboarding checklist fails to mark a step complete.",
+      "expected_difficulty": "easy",
+      "notes": ""
+    },
+    {
+      "id": "TC059",
+      "input": "Any chance you could do a demo for our whole team next week?",
+      "expected_category": "general",
+      "expected_summary": "Customer requests a product demo for their team.",
+      "expected_difficulty": "easy",
+      "notes": ""
+    },
+    {
+      "id": "TC060",
+      "input": "my son used my laptop and now the account language is in korean and i cant read anything to change it back",
+      "expected_category": "account",
+      "expected_summary": "Customer's account language was changed and they need help reverting the setting.",
+      "expected_difficulty": "hard",
+      "notes": "Rambling, informal, settings-change edge case"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+version: "v8"
+timestamp: "2024-05-29T14:20:00Z"
+model: "gpt-4o-mini"
+notes: >
+  Candidate prompt. Shortened instructions and dropped few-shot examples in
+  an attempt to reduce token usage / latency. This is the change under test —
+  the sample HTML report in this repo shows the regressions this version
+  introduced on ambiguous account-vs-general boundary cases, which is why
+  keeping few-shot examples matters even when they cost tokens.
+
+system_prompt: |
+  Classify the customer support email as billing, technical, account, or
+  general. Be concise. Write a short one-sentence summary. Include a
+  confidence score 0-100.
+
+  Respond ONLY with JSON: {"category": "...", "summary": "...", "confidence": <0-100>}
+
+few_shot_examples: []
