@@ -17,7 +17,7 @@ It evaluates prompt and model changes against a golden dataset, compares them ag
 [![Gemini](https://img.shields.io/badge/Gemini-supported-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
 [![SQLite](https://img.shields.io/badge/SQLite-storage-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 
-[Demo Video](#) · [Live Dashboard](#) · [Documentation](docs/) · [Architecture](docs/architecture.md)
+[Demo Video](#) · [Live Dashboard](https://llm-regression-detector.vercel.app) · [Documentation](docs/) · [Architecture](docs/architecture.md)
 
 </div>
 
@@ -138,6 +138,15 @@ This repo ships with a pre-populated `data/eval_results.db` containing a
 demo run history so every dashboard has something to show immediately.
 A demo account is included in the web dashboard for quick exploration —
 delete `data/` to start from a clean slate.
+
+---
+
+## 🌐 Live Demo
+
+- **Dashboard:** [llm-regression-detector.vercel.app](https://llm-regression-detector.vercel.app)
+- **API:** [llm-regression-detector.onrender.com/docs](https://llm-regression-detector.onrender.com/docs)
+
+The backend runs on Render's free tier, so the first request after a period of inactivity can take 30–50s to wake up — refresh once it responds. Demo data reflects a snapshot of real eval runs (v7 → v8); running new evals from the hosted dashboard works but won't persist across backend restarts (ephemeral disk on the free tier). For persistent runs, clone and run locally.
 
 ---
 
