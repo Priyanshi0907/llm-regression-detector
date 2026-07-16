@@ -27,9 +27,9 @@ function getDevOpsDetails(runId) {
   if (runId.includes('v8')) branch = 'feature/classifier-v8'
   else if (runId.includes('v9')) branch = 'fix/summary-relevance'
   else if (runId.includes('v1')) branch = 'feature/evals-v1'
-  
+
   const prNum = parseInt(hash, 16) % 100 + 42
-  
+
   return {
     commit: hash,
     branch: branch,
@@ -134,9 +134,8 @@ export default function Runs() {
                       setSelected(r)
                       setSearchParams({})
                     }}
-                    className={`border-t border-[#222938] cursor-pointer transition-colors hover:bg-white/5 ${
-                      selected?.run_id === r.run_id ? 'bg-[#5B7FFF]/10' : ''
-                    }`}
+                    className={`border-t border-[#222938] cursor-pointer transition-colors hover:bg-white/5 ${selected?.run_id === r.run_id ? 'bg-[#5B7FFF]/10' : ''
+                      }`}
                   >
                     <td className="px-4 py-3">
                       <div className="flex flex-col">
@@ -176,7 +175,7 @@ export default function Runs() {
               })}
             </tbody>
           </table>
-          
+
           {filtered.length > 10 && (
             <div className="flex justify-center py-3 border-t border-[#222938] bg-white/[0.01]">
               {showAll ? (
@@ -207,7 +206,7 @@ export default function Runs() {
 function RunDetail({ run }) {
   const catData = Object.entries(run.category_accuracy).map(([name, value]) => ({ name, value }))
   const devops = getDevOpsDetails(run.run_id)
-  
+
   return (
     <div className="glass rounded-xl p-5 border border-[#222938] fade-in-up space-y-5">
       <div className="flex items-center gap-2 border-b border-[#222938] pb-4">
@@ -220,7 +219,7 @@ function RunDetail({ run }) {
         </div>
         <div className="ml-auto flex items-center gap-3">
           <button
-            onClick={() => window.open(`/api/reports/${run.run_id}`, '_blank')}
+            onClick={() => window.open(`${import.meta.env.VITE_API_URL || '/api'}/reports/${run.run_id}`, '_blank')}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#222938] bg-[#0D1117] text-xs font-semibold text-[#A0AEC0] hover:text-white hover:border-[#5B7FFF]/40 transition-colors"
           >
             <FileText size={13} /> View HTML Report

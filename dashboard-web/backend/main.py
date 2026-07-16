@@ -227,10 +227,18 @@ def upload_dataset(req: DatasetImportRequest):
         f.write(req.content)
         tmp_path = f.name
 
+    # req.output_path / req.merge_with come from the frontend as paths
+    # relative to the project root (e.g. "golden_dataset/dataset_v1.json").
+    # Resolve them against PROJECT_ROOT explicitly rather than leaving them
+    # relative to cwd, which on Render is dashboard-web/backend, not the
+    # project root — same bug class as the prompts/reports paths above.
+    output_path = str(PROJECT_ROOT / req.output_path)
+    merge_with = str(PROJECT_ROOT / req.merge_with) if req.merge_with else None
+
     try:
         summary = import_dataset(
-            tmp_path, req.output_path,
-            merge_with=req.merge_with, dataset_version=req.dataset_version,
+            tmp_path, output_path,
+            merge_with=merge_with, dataset_version=req.dataset_version,
         )
         return summary
     except DatasetImportError as e:
