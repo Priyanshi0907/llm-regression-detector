@@ -25,26 +25,22 @@ async function post(path, body) {
 }
 
 /**
- * Wrap an API call so it falls back to demo data when:
- *  - the backend is unreachable (frontend-only deploy), OR
- *  - the backend returns empty/no-data responses.
+ * Wrap an API call so it falls back to demo data ONLY when the backend
+ * is completely unreachable (network error, CORS block, etc.).
+ *
+ * If the backend responds — even with empty data — the real response
+ * is returned as-is so the UI reflects the true project state.
  */
-function withFallback(apiCall, demoValue, isEmpty) {
-  return apiCall
-    .then((data) => {
-      // If the real data is "empty", substitute demo data
-      if (isEmpty && isEmpty(data)) return demoValue
-      return data
-    })
-    .catch(() => demoValue)
+function withFallback(apiCall, demoValue) {
+  return apiCall.catch(() => demoValue)
 }
 
 export const api = {
   meta:         () => withFallback(get('/meta'),     DEMO_META),
-  runs:         () => withFallback(get('/runs'),      DEMO_RUNS, (d) => !d || d.length === 0),
+  runs:         () => withFallback(get('/runs'),      DEMO_RUNS),
   run:         (id) => withFallback(get(`/runs/${encodeURIComponent(id)}`), DEMO_RUNS.find(r => r.run_id === id) || DEMO_RUNS[0]),
-  runCases:    (id) => withFallback(get(`/runs/${encodeURIComponent(id)}/cases`), DEMO_CASES, (d) => !d || d.length === 0),
-  overview:     () => withFallback(get('/overview'),  DEMO_OVERVIEW, (d) => d && d.has_data === false),
+  runCases:    (id) => withFallback(get(`/runs/${encodeURIComponent(id)}/cases`), DEMO_CASES),
+  overview:     () => withFallback(get('/overview'),  DEMO_OVERVIEW),
   compare:  (a, b) => withFallback(
     get(`/compare?run_a=${encodeURIComponent(a)}&run_b=${encodeURIComponent(b)}`),
     {
@@ -60,7 +56,7 @@ export const api = {
     get(`/compare-multi?run_ids=${runIds.map(encodeURIComponent).join(',')}`),
     { runs: runIds.map(id => DEMO_RUNS.find(r => r.run_id === id) || DEMO_RUNS[0]) }
   ),
-  drift:        () => withFallback(get('/drift'),    DEMO_DRIFT, (d) => !d?.drift),
+  drift:        () => withFallback(get('/drift'),    DEMO_DRIFT),
   uploadDataset: (payload) => post('/dataset/upload', payload),
   prompts:      () => withFallback(get('/prompts'),  ['prompts/v7.yaml', 'prompts/v8.yaml']),
   runEval: (payload) => post('/run-eval', payload),

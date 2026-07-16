@@ -35,12 +35,6 @@ app.add_middleware(
 
 storage.init_db()
 
-# Auto-seed realistic demo data when the DB is empty (e.g. after
-# Render's ephemeral filesystem wipes the SQLite file on deploy).
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from seed_demo import seed_demo_data  # noqa: E402
-seed_demo_data()
-
 
 def _run_dict(r):
     return r.model_dump()
