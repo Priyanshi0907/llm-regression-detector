@@ -261,7 +261,9 @@ def list_prompts():
     prompts_dir = PROJECT_ROOT / "prompts"
     if not prompts_dir.exists():
         return []
-    return sorted(p.name for p in prompts_dir.glob("*.yaml"))
+    # Return paths as "prompts/v8.yaml" (not bare "v8.yaml") so they match
+    # what run_evaluation()'s security check and src.cli --prompt expect.
+    return sorted(f"prompts/{p.name}" for p in prompts_dir.glob("*.yaml"))
 
 
 class RunEvalRequest(BaseModel):
@@ -283,6 +285,7 @@ def run_evaluation(req: RunEvalRequest):
         result = subprocess.run(
             [python_exe, "-m", "src.cli", "--prompt", req.prompt_file, "--no-slack"],
             capture_output=True, text=True,
+            cwd=PROJECT_ROOT,
         )
         return {
             "returncode": result.returncode,
