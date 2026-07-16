@@ -282,10 +282,25 @@ def run_evaluation(req: RunEvalRequest):
     try:
         # Run under the active python interpreter
         python_exe = sys.executable
+        # The main uvicorn process has cwd=dashboard-web/backend, so its env
+        # vars (DATASET_PATH, RUBRIC_PATH, etc.) are set relative to that
+        # (e.g. "../../golden_dataset/dataset_v1.json"). This subprocess runs
+        # with cwd=PROJECT_ROOT instead (required for `python -m src.cli` to
+        # resolve), so those same relative values would point two levels too
+        # high. Override them here to be relative to PROJECT_ROOT directly.
+        import os
+        subprocess_env = os.environ.copy()
+        subprocess_env["DATASET_PATH"] = "golden_dataset/dataset_v1.json"
+        subprocess_env["RUBRIC_PATH"] = "golden_dataset/judge_rubric.yaml"
+        subprocess_env["PROMPTS_DIR"] = "prompts"
+        subprocess_env["DB_PATH"] = "data/eval_results.db"
+        subprocess_env["REPORTS_DIR"] = "data/reports"
+
         result = subprocess.run(
             [python_exe, "-m", "src.cli", "--prompt", req.prompt_file, "--no-slack"],
             capture_output=True, text=True,
             cwd=PROJECT_ROOT,
+            env=subprocess_env,
         )
         return {
             "returncode": result.returncode,
