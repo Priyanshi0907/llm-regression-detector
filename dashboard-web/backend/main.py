@@ -10,7 +10,8 @@ import sys
 import tempfile
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -257,8 +258,10 @@ def drift_detail():
 
 @app.get("/api/prompts")
 def list_prompts():
-    from pathlib import Path
-    return sorted(p.as_posix() for p in Path("prompts").glob("*.yaml"))
+    prompts_dir = PROJECT_ROOT / "prompts"
+    if not prompts_dir.exists():
+        return []
+    return sorted(p.name for p in prompts_dir.glob("*.yaml"))
 
 
 class RunEvalRequest(BaseModel):
@@ -269,8 +272,8 @@ class RunEvalRequest(BaseModel):
 def run_evaluation(req: RunEvalRequest):
     import subprocess
     # Ensure the path is inside prompts directory for security
-    path = Path(req.prompt_file).resolve()
-    prompts_dir = Path("prompts").resolve()
+    prompts_dir = (PROJECT_ROOT / "prompts").resolve()
+    path = (PROJECT_ROOT / req.prompt_file).resolve()
     if not str(path).startswith(str(prompts_dir)):
         raise HTTPException(400, "Invalid prompt path")
 
@@ -294,7 +297,7 @@ def run_evaluation(req: RunEvalRequest):
 def get_prompt_content(filename: str):
     try:
         clean_name = filename.replace("\\", "/").split("/")[-1]
-        prompt_path = Path("prompts") / clean_name
+        prompt_path = PROJECT_ROOT / "prompts" / clean_name
         if not prompt_path.exists():
             raise HTTPException(404, "Prompt template not found")
         return {"content": prompt_path.read_text(encoding="utf-8")}
@@ -314,7 +317,11 @@ def get_report(run_id: str):
     if not run:
         raise HTTPException(404, "Run not found")
 
-    reports_dir = Path("data/reports")
+    # FIX: was Path("data/reports") — relative to cwd, which breaks on Render
+    # since its working directory is dashboard-web/backend, not the project
+    # root. PROJECT_ROOT is an absolute path computed from __file__, so this
+    # resolves correctly regardless of where the process is launched from.
+    reports_dir = PROJECT_ROOT / "data" / "reports"
     report_path = reports_dir / f"{run_id}.html"
     if report_path.exists():
         return HTMLResponse(content=report_path.read_text(encoding="utf-8"))
